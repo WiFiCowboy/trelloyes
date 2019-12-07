@@ -1,8 +1,9 @@
 import React from 'react';
-import STORE from './store';
+
 import List from './components/List/List'
 
-function App() {
+function App(props) {
+  const STORE = props.STORE
   let lists = STORE.lists
   for(let i=0;i<lists.length;i++){
       lists[i].cardIds.map(id =>
