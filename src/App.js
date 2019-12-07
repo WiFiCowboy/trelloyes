@@ -6,14 +6,16 @@ function App(props) {
   const STORE = props.STORE
   let lists = STORE.lists
   for(let i=0;i<lists.length;i++){
-      lists[i].cardIds.map(id =>
-        id = STORE.allCards[id]) //error, need to merge STORE objects
+    // console.log("list:",lists[i].header)
+    for(let x = 0; x < lists[i].cardIds.length; x++){
+      // console.log("card:",lists[i].cardIds[x])
+      // console.log(STORE.allCards[lists[i].cardIds[x]])
+      lists[i].cardIds[x] = STORE.allCards[lists[i].cardIds[x]]
+    }
   }
-
-    console.log('App:',lists)
-
+  // console.log(lists.cardIds)
   let list = lists.map(list =>
-    <List header={list.header} cards={lists.cardIds} />)
+    <List key={list.id} header={list.header} cards={list.cardIds} />)
 
   return (
     <main className='App'>
