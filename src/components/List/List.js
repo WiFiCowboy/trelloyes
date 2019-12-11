@@ -2,6 +2,7 @@ import React from 'react'
 import Card from '../Card/Card'
 import './List.css'
 
+
 function List(props) {
   console.log('List:',props)
   let cards = props.cards.map(card =>
@@ -16,5 +17,7 @@ function List(props) {
     </section>
   )
 }
+
+List.defaultProps = {header: '000', cards:[{ id: '0', title: 'card', content: 'lorem ipsum' }] };
 
 export default List
