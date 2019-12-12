@@ -27,4 +27,10 @@ function App(props) {
   );
 }
 
+App.defaultProps = {
+  STORE: {
+    lists: []
+  }
+}
+
 export default App;
