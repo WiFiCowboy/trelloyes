@@ -12,7 +12,7 @@ function List(props) {
     <section className="List">
         <header className="List-header">
             <h2>{props.header}</h2>
-          </header>
+        </header>
         <div className="List-cards">{cards}</div>
     </section>
   )
