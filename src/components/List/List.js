@@ -4,9 +4,9 @@ import './List.css'
 
 
 function List(props) {
-  console.log('List:',props)
+  // console.log('List:',props)
   let cards = props.cards.map(card =>
-    <Card key={card.id} title={card.title} content={card.content} />)
+    <Card onDelete={() => props.delete(card.id)} key={card.id} title={card.title} content={card.content} />)
 
   return (
     <section className="List">
@@ -21,3 +21,5 @@ function List(props) {
 List.defaultProps = {header: '000', cards:[{ id: '0', title: 'card', content: 'lorem ipsum' }] };
 
 export default List
+
+
