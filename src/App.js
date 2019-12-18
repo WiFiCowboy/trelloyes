@@ -6,14 +6,10 @@ function App(props) {
   const STORE = props.STORE
   let lists = STORE.lists
   for(let i=0;i<lists.length;i++){
-    // console.log("list:",lists[i].header)
     for(let x = 0; x < lists[i].cardIds.length; x++){
-      // console.log("card:",lists[i].cardIds[x])
-      // console.log(STORE.allCards[lists[i].cardIds[x]])
       lists[i].cardIds[x] = STORE.allCards[lists[i].cardIds[x]]
     }
   }
-  // console.log(lists.cardIds)
   let list = lists.map(list =>
     <List key={list.id} header={list.header} cards={list.cardIds} />)
 

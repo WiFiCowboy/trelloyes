@@ -21,3 +21,5 @@ function List(props) {
 List.defaultProps = {header: '000', cards:[{ id: '0', title: 'card', content: 'lorem ipsum' }] };
 
 export default List
+
+
