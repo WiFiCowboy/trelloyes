@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import List from './components/List/List'
+import STORE from './store';
 
 class App extends Component {
   constructor(props){
@@ -12,43 +13,49 @@ class App extends Component {
   }
 
   deleteHandler = (id) => { 
-    // console.log("this is id: ", id);
-    
     let lists = this.state.STORE.lists;
-    const newCards = lists.map(list => list.cardIds.filter(card => card.id !== id)
+    const newLists = lists.map(list => {
+      console.log(list.cardIds)
+      list.cardIds = list.cardIds.filter(card => card != id)
+      return list;
+    }
     );
-    console.log(this.state.STORE, "vs");
-    let newState = {
-      lists: lists,
-      allCards: newCards
+      this.setState({
+        STORE: {...this.state.STORE, lists: newLists}
+      }) 
     }
-    console.log(newState);
     
-    
-    // const newCards = allCards.filter(card => 
-    //   card === id) 
-    
-      
-      // this.setState({ STORE: newState }) 
-    // console.log('delete handler: ',id);
+  handleRandom = () => {
+    console.log('add random buttom clicked!');
+    const newRandomCard = () => {
+      const id = Math.random().toString(36).substring(2, 4)
+        + Math.random().toString(36).substring(2, 4);
+      return {
+        id,
+        title: `Random Card ${id}`,
+        content: 'lorem ipsum',
+      }
     }
-      
-
-
+    console.log(STORE.allCards)
+    this.setState({allCards: newRandomCard})
+  }
+  
   render(){
     // console.log(this.state)
     let lists = this.state.STORE.lists
     for(let i=0;i<lists.length;i++){
+      lists[i].cards = [];
       for(let x = 0; x < lists[i].cardIds.length; x++){
-        lists[i].cardIds[x] = this.state.STORE.allCards[lists[i].cardIds[x]]
+        lists[i].cards[x] = this.state.STORE.allCards[lists[i].cardIds[x]]
       }
     }
+
+    
     // console.log("These are the list: ",lists);
     let list = lists.map(list =>
-      <List  delete={this.deleteHandler} key={list.id} header={list.header} cards={list.cardIds} />)
+      <List  delete={this.deleteHandler} key={list.id} header={list.header} cards={list.cards} random={this.handleRandom}/>)
   
    
-  
     return (
       <main className='App'>
         <header className="App-header">
