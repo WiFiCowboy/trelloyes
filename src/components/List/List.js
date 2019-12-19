@@ -4,7 +4,7 @@ import './List.css'
 
 
 function List(props) {
-  // console.log('List:',props)
+  console.log('List:',props.cards)
   let cards = props.cards.map(card =>
     <Card onDelete={() => props.delete(card.id)} key={card.id} title={card.title} content={card.content} />)
 

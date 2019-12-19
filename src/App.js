@@ -12,25 +12,18 @@ class App extends Component {
   }
 
   deleteHandler = (id) => { 
-    // console.log("this is id: ", id);
-    
+    console.log("this is id: ", id);
     let lists = this.state.STORE.lists;
-    const newCards = lists.map(list => list.cardIds.filter(card => card.id !== id)
+    const newLists = lists.map(list => {
+      console.log(list.cardIds)
+      list.cardIds = list.cardIds.filter(card => card != id)
+      return list;
+    }
     );
     console.log(this.state.STORE, "vs");
-    let newState = {
-      lists: lists,
-      allCards: newCards
-    }
-    console.log(newState);
-    
-    
-    // const newCards = allCards.filter(card => 
-    //   card === id) 
-    
-      
-      // this.setState({ STORE: newState }) 
-    // console.log('delete handler: ',id);
+      this.setState({
+        STORE: {...this.state.STORE, lists: newLists}
+      }) 
     }
       
 
@@ -39,13 +32,14 @@ class App extends Component {
     // console.log(this.state)
     let lists = this.state.STORE.lists
     for(let i=0;i<lists.length;i++){
+      lists[i].cards = [];
       for(let x = 0; x < lists[i].cardIds.length; x++){
-        lists[i].cardIds[x] = this.state.STORE.allCards[lists[i].cardIds[x]]
+        lists[i].cards[x] = this.state.STORE.allCards[lists[i].cardIds[x]]
       }
     }
     // console.log("These are the list: ",lists);
     let list = lists.map(list =>
-      <List  delete={this.deleteHandler} key={list.id} header={list.header} cards={list.cardIds} />)
+      <List  delete={this.deleteHandler} key={list.id} header={list.header} cards={list.cards} />)
   
    
   
