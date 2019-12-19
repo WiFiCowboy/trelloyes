@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import List from './components/List/List'
+import STORE from './store';
 
 class App extends Component {
   constructor(props){
@@ -12,7 +13,6 @@ class App extends Component {
   }
 
   deleteHandler = (id) => { 
-    console.log("this is id: ", id);
     let lists = this.state.STORE.lists;
     const newLists = lists.map(list => {
       console.log(list.cardIds)
@@ -20,14 +20,26 @@ class App extends Component {
       return list;
     }
     );
-    console.log(this.state.STORE, "vs");
       this.setState({
         STORE: {...this.state.STORE, lists: newLists}
       }) 
     }
-      
-
-
+    
+  handleRandom = () => {
+    console.log('add random buttom clicked!');
+    const newRandomCard = () => {
+      const id = Math.random().toString(36).substring(2, 4)
+        + Math.random().toString(36).substring(2, 4);
+      return {
+        id,
+        title: `Random Card ${id}`,
+        content: 'lorem ipsum',
+      }
+    }
+    console.log(STORE.allCards)
+    this.setState({allCards: newRandomCard})
+  }
+  
   render(){
     // console.log(this.state)
     let lists = this.state.STORE.lists
@@ -37,12 +49,13 @@ class App extends Component {
         lists[i].cards[x] = this.state.STORE.allCards[lists[i].cardIds[x]]
       }
     }
+
+    
     // console.log("These are the list: ",lists);
     let list = lists.map(list =>
-      <List  delete={this.deleteHandler} key={list.id} header={list.header} cards={list.cards} />)
+      <List  delete={this.deleteHandler} key={list.id} header={list.header} cards={list.cards} random={this.handleRandom}/>)
   
    
-  
     return (
       <main className='App'>
         <header className="App-header">
